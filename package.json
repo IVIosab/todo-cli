@@ -1,0 +1,29 @@
+{
+  "name": "todo-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IVIosab/todo-cli.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IVIosab/todo-cli/issues"
+  },
+  "homepage": "https://github.com/IVIosab/todo-cli#readme",
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "cli-table3": "^0.6.5",
+    "dayjs": "^1.11.13",
+    "figlet": "^1.8.1",
+    "inquirer": "^12.6.3",
+    "lowdb": "^7.0.1",
+    "ora": "^8.2.0",
+    "zod": "^3.25.36"
+  }
+}
