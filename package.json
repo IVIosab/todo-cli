@@ -23,6 +23,7 @@
     "dayjs": "^1.11.13",
     "figlet": "^1.8.1",
     "inquirer": "^12.6.3",
+    "inquirer-table-input": "^0.0.4",
     "lowdb": "^7.0.1",
     "ora": "^8.2.0",
     "zod": "^3.25.36"

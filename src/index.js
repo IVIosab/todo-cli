@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { mainMenuPrompt, taskInputPrompt } from './ui/menu.js';
+import { listTasksPrompt, mainMenuPrompt, taskInputPrompt } from './ui/menu.js';
 import { addTask } from './tasks/add.js';
 import { listTasks } from './tasks/list.js';
 import { updateTask } from './tasks/update.js';
@@ -16,9 +16,11 @@ async function main() {
             addTask(task);
         } else if (action === 'list') {
             const tasks = await listTasks();
-            renderTasks(tasks);
+            await listTasksPrompt(tasks, "Navigate", false);
         } else if (action === 'update') {
-            await updateTask();
+            const tasks = await listTasks();
+            const updatedTasks = await listTasksPrompt(tasks, "Navigate and Edit", true);
+            await updateTask(updatedTasks);
         } else if (action === 'remove') {
             await removeTask();
         } else if (action === 'exit') {
