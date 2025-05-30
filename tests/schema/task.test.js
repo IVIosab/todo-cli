@@ -1,4 +1,3 @@
-// schema.test.js
 import { describe, it, expect } from 'vitest';
 import { TaskSchema } from '@schema/task';
 import dayjs from 'dayjs';
