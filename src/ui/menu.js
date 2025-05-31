@@ -1,6 +1,7 @@
 import inquirer from 'inquirer';
 import TableInput from 'inquirer-table-input';
 import chalk from 'chalk';
+import { listTasks } from '../tasks/list.js';
 
 inquirer.registerPrompt("table-input", TableInput);
 
@@ -31,7 +32,23 @@ export async function mainMenuPrompt() {
 	return action;
 }
 
-export async function listTasksPrompt(tasks, info, edit) {
+export async function listTasksPrompt(info, edit) {
+	const { sortMethod } = await inquirer.prompt([
+		{
+			type: 'list',
+			name: 'sortMethod',
+			message: 'How would you like the tasks to be sorted?',
+			choices: [
+				{ name: '- Priority', value: 'priority' },
+				{ name: '- Due date', value: 'dueDate' },
+				{ name: '- Creation date', value: 'createdAt' },
+				{ name: '- Completion status', value: 'status' },
+			],
+		},
+	]);
+
+	const tasks = await listTasks(sortMethod);
+
 	const columns = [
 		{ name: chalk.cyan.bold("id"), value: "id" },
 		{ name: chalk.cyan.bold("Title"), value: "title", ...(edit && { editable: "text" }) },

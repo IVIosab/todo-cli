@@ -14,8 +14,7 @@ async function main() {
             const task = await taskInputPrompt();
             await addTask(task);
         } else if (action === 'list') {
-            const tasks = await listTasks();
-            await listTasksPrompt(tasks, "Navigate", false);
+            await listTasksPrompt("Navigate", false);
         } else if (action === 'update') {
             const tasks = await listTasks();
             const updatedTasks = await listTasksPrompt(tasks, "Navigate and Edit", true);
