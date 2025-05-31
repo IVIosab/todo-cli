@@ -1,10 +1,7 @@
-import inquirer from 'inquirer';
-import TableInput from 'inquirer-table-input';
-import chalk from 'chalk';
 import { postTasks } from '../db.js';
-import { retreiveTasks } from './sort.js';
-
-inquirer.registerPrompt("table-input", TableInput);
+import { retreiveSortedTasks } from '../utils/sort.js';
+import { sortPrompt } from '../ui/sort.js';
+import { tablePrompt } from '../ui/table.js';
 
 function validateTasks(originalTasks, editedTasks) {
     const originalMap = Object.fromEntries(originalTasks.map(task => [task.id, task]));
@@ -41,36 +38,14 @@ function parseEditedTasks(editedTasks) {
     }));
 }
 
-export async function updateTasksPrompt() {
-    const tasks = await retreiveTasks();
+export async function updateTasks() {
+    const sortBy = await sortPrompt();
+    const tasks = await retreiveSortedTasks(sortBy);
 
-    const columns = [
-        { name: chalk.cyan.bold("id"), value: "id" },
-        { name: chalk.cyan.bold("Title"), value: "title", editable: "text" },
-        { name: chalk.cyan.bold("Description"), value: "description", editable: "text" },
-        { name: chalk.cyan.bold("Due date"), value: "dueDate", editable: "text" },
-        { name: chalk.cyan.bold("Created at"), value: "createdAt" },
-        { name: chalk.cyan.bold("Priority"), value: "priority", editable: "number" },
-        { name: chalk.cyan.bold("Completed"), value: "completed", editable: "text" },
-    ];
+    const answers = await tablePrompt(tasks, "Navigate and update cells", true);
 
-    const answers = await inquirer.prompt([
-        {
-            type: "table-input",
-            name: "Tasks",
-            message: "TASKS",
-            infoMessage: "Navigate and update cells",
-            hideInfoWhenKeyPressed: true,
-            freezeColumns: 1,
-            selectedColor: chalk.yellow,
-            editableColor: chalk.bgYellow.bold,
-            editingColor: chalk.bgGreen.bold,
-            columns,
-            rows: tasks.map(Object.values),
-            validate: () => false
-        }
-    ]);
     const validated = validateTasks(tasks, answers.Tasks.result);
     const parsed = parseEditedTasks(validated);
+
     await postTasks(parsed);
 }

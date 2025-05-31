@@ -1,10 +1,7 @@
-import inquirer from 'inquirer';
-import TableInput from 'inquirer-table-input';
-import chalk from 'chalk';
 import { postTasks } from '../db.js';
-import { retreiveTasks } from './sort.js';
-
-inquirer.registerPrompt("table-input", TableInput);
+import { retreiveSortedTasks } from '../utils/sort.js';
+import { sortPrompt } from '../ui/sort.js';
+import { tablePrompt } from '../ui/table.js';
 
 function parseEditedTasks(editedTasks) {
     return editedTasks
@@ -34,36 +31,11 @@ function validateTasks(originalTasks, editedTasks) {
     });
 }
 
-export async function removeTasksPrompt() {
-    const tasks = await retreiveTasks();
+export async function removeTasks() {
+    const sortBy = await sortPrompt();
+    const tasks = await retreiveSortedTasks(sortBy);
 
-    const columns = [
-        { name: chalk.cyan.bold("id"), value: "id" },
-        { name: chalk.cyan.bold("Title"), value: "title" },
-        { name: chalk.cyan.bold("Description"), value: "description" },
-        { name: chalk.cyan.bold("Due date"), value: "dueDate" },
-        { name: chalk.cyan.bold("Created at"), value: "createdAt" },
-        { name: chalk.cyan.bold("Priority"), value: "priority" },
-        { name: chalk.cyan.bold("Completed"), value: "completed" },
-        { name: chalk.cyan.bold("Remove?"), value: "remove", editable: "text" },
-    ];
-
-    const answers = await inquirer.prompt([
-        {
-            type: "table-input",
-            name: "Tasks",
-            message: "TASKS",
-            infoMessage: "Select items to remove by updating the 'Remove?' column",
-            hideInfoWhenKeyPressed: true,
-            freezeColumns: 7,
-            selectedColor: chalk.yellow,
-            editableColor: chalk.bgYellow.bold,
-            editingColor: chalk.bgGreen.bold,
-            columns,
-            rows: tasks.map(task => [...Object.values(task), false]),
-            validate: () => false
-        }
-    ]);
+    const answers = await tablePrompt(tasks, "Select items to remove by updating the 'Remove?' column", false, true);
 
     const validated = validateTasks(tasks, answers.Tasks.result);
     const parsed = parseEditedTasks(validated);

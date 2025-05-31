@@ -1,9 +1,9 @@
 import { retreiveSortedTasks } from '../utils/sort.js';
 import { sortPrompt } from '../ui/sort.js';
-import { tablePrompt } from '../ui/table.js';
 
-export async function listTasks() {
+export async function retreiveTasks() {
     const sortBy = await sortPrompt();
     const tasks = await retreiveSortedTasks(sortBy);
-    await tablePrompt(tasks);
+
+    return tasks;
 }
