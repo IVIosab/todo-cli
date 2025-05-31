@@ -11,8 +11,8 @@ export async function removeTasks() {
 
     const answers = await tablePrompt(tasks, "Select items to remove by updating the 'Remove?' column", false, true);
 
-    const validated = validateRemoveTasks(tasks, answers.Tasks.result);
+    const validated = validateRemoveTasks(answers.Tasks.result);
     const parsed = parseRemoveTasks(validated);
-    
+
     await postTasks(parsed);
 }
