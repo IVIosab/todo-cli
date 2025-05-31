@@ -2,41 +2,8 @@ import { postTasks } from '../db.js';
 import { retreiveSortedTasks } from '../utils/sort.js';
 import { sortPrompt } from '../ui/sort.js';
 import { tablePrompt } from '../ui/table.js';
-
-function validateTasks(originalTasks, editedTasks) {
-    const originalMap = Object.fromEntries(originalTasks.map(task => [task.id, task]));
-
-    return editedTasks.map(task => {
-        const original = originalMap[task.id];
-        if (!original) return task;
-        if (!["1", "2", "3"].includes(task.priority)) {
-            task.priority = original.priority;
-        }
-
-        if (!["true", "false"].includes(task.completed)) {
-            task.completed = original.completed;
-        }
-
-        if (!task.title || task.title.trim() === "") {
-            task.title = original.title;
-        }
-
-        if (!/^\d{4}-\d{2}-\d{2}$/.test(task.dueDate)) {
-            task.dueDate = original.dueDate;
-        }
-
-        return task;
-    });
-}
-
-
-function parseEditedTasks(editedTasks) {
-    return editedTasks.map(task => ({
-        ...task,
-        priority: Number(task.priority),
-        completed: task.completed === "true"
-    }));
-}
+import { validateUpdateTasks } from '../utils/validate.js';
+import { parseUpdateTasks } from '../utils/parse.js';
 
 export async function updateTasks() {
     const sortBy = await sortPrompt();
@@ -44,8 +11,8 @@ export async function updateTasks() {
 
     const answers = await tablePrompt(tasks, "Navigate and update cells", true);
 
-    const validated = validateTasks(tasks, answers.Tasks.result);
-    const parsed = parseEditedTasks(validated);
+    const validated = validateUpdateTasks(tasks, answers.Tasks.result);
+    const parsed = parseUpdateTasks(validated);
 
     await postTasks(parsed);
 }
