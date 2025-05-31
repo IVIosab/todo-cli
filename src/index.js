@@ -1,7 +1,8 @@
 import { mainMenuPrompt } from './ui/menu.js';
 import { listTasksPrompt } from './ui/list.js';
+import { updateTasksPrompt } from './ui/update.js';
+import { removeTasksPrompt } from './ui/remove.js';
 import { taskInputPrompt } from './ui/add.js';
-import { removeTask } from './utils/remove.js';
 import figlet from 'figlet';
 
 async function main() {
@@ -12,11 +13,11 @@ async function main() {
         if (action === 'add') {
             await taskInputPrompt();
         } else if (action === 'list') {
-            await listTasksPrompt("Navigate", false);
+            await listTasksPrompt();
         } else if (action === 'update') {
-            await listTasksPrompt("Navigate and Edit", true);
+            await updateTasksPrompt();
         } else if (action === 'remove') {
-            await removeTask();
+            await removeTasksPrompt();
         } else if (action === 'exit') {
             break;
         }
