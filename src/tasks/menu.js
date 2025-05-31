@@ -11,6 +11,7 @@ export async function mainMenuPrompt() {
 				{ name: '- List Tasks', value: 'list' },
 				{ name: '- Update Task', value: 'update' },
 				{ name: '- Remove Task', value: 'remove' },
+				{ name: '- Clear all completed tasks', value: 'clear' },
 				{ name: '- Exit', value: 'exit' },
 			],
 		},

@@ -1,8 +1,9 @@
-import { mainMenuPrompt } from './ui/menu.js';
-import { listTasksPrompt } from './ui/list.js';
-import { updateTasksPrompt } from './ui/update.js';
-import { removeTasksPrompt } from './ui/remove.js';
-import { taskInputPrompt } from './ui/add.js';
+import { mainMenuPrompt } from './tasks/menu.js';
+import { listTasksPrompt } from './tasks/list.js';
+import { updateTasksPrompt } from './tasks/update.js';
+import { removeTasksPrompt } from './tasks/remove.js';
+import { taskInputPrompt } from './tasks/add.js';
+import { clearCompletedTasks } from './tasks/clear-completed.js';
 import figlet from 'figlet';
 
 async function main() {
@@ -18,6 +19,8 @@ async function main() {
             await updateTasksPrompt();
         } else if (action === 'remove') {
             await removeTasksPrompt();
+        } else if (action === 'clear') {
+            await clearCompletedTasks();
         } else if (action === 'exit') {
             break;
         }
