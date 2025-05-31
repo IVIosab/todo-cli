@@ -1,5 +1,5 @@
 import { getTasks, postTasks } from '../db.js'
-import { TaskSchema } from '../schema/index.js'
+import { TaskSchema } from '../schema/task.js'
 import { nanoid } from 'nanoid'
 import dayjs from 'dayjs'
 

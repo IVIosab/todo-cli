@@ -4,8 +4,7 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "start": "node src/index.js",
-    "test": "vitest"
+    "start": "node src/index.js"
   },
   "repository": {
     "type": "git",
@@ -19,16 +18,13 @@
   "homepage": "https://github.com/IVIosab/todo-cli#readme",
   "dependencies": {
     "chalk": "^5.4.1",
-    "cli-table3": "^0.6.5",
     "dayjs": "^1.11.13",
     "figlet": "^1.8.1",
     "inquirer": "^12.6.3",
     "inquirer-table-input": "^0.0.4",
     "lowdb": "^7.0.1",
+    "nanoid": "^5.1.5",
     "ora": "^8.2.0",
     "zod": "^3.25.36"
-  },
-  "devDependencies": {
-    "vitest": "^3.1.4"
   }
 }
