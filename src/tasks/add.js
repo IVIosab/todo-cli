@@ -1,5 +1,5 @@
-import db from '../db.js'
-import { TaskSchema, PriorityEnum } from '../schema/index.js'
+import { getTasks, postTasks } from '../db.js'
+import { TaskSchema } from '../schema/index.js'
 import { nanoid } from 'nanoid'
 import dayjs from 'dayjs'
 
@@ -10,7 +10,7 @@ export async function addTask(data) {
         description: data.description || '',
         dueDate: dayjs(data.dueDate).format('YYYY-MM-DD'),
         createdAt: dayjs().format('YYYY-MM-DD'),
-        priority: PriorityEnum.safeParse(data.priority).success ? data.priority : 3,
+        priority: data.priority,
         completed: false,
     }
     const parseResult = TaskSchema.safeParse(task)
@@ -18,8 +18,7 @@ export async function addTask(data) {
         throw new Error(`Invalid task data: ${JSON.stringify(parseResult.error.format())}`)
     }
 
-    await db.read();
-    const tasks = db.data.tasks;
-    db.data.tasks = [task, ...tasks];
-    await db.write();
+    let tasks = await getTasks();
+    const newTasks = [task, ...tasks];
+    await postTasks(newTasks);
 }

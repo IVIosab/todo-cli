@@ -1,1 +1,1 @@
-export { PriorityEnum, TaskSchema } from './task.js'
+export { TaskSchema } from './task.js'

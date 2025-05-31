@@ -4,6 +4,14 @@ import chalk from 'chalk';
 
 inquirer.registerPrompt("table-input", TableInput);
 
+function parseEditedTasks(editedTasks) {
+	return editedTasks.map(task => ({
+		...task,
+		priority: Number(task.priority),
+		completed: task.completed === "true"
+	}));
+}
+
 export async function mainMenuPrompt() {
 	const { action } = await inquirer.prompt([
 		{
@@ -14,7 +22,6 @@ export async function mainMenuPrompt() {
 				{ name: '- Add Task', value: 'add' },
 				{ name: '- List Tasks', value: 'list' },
 				{ name: '- Update Task', value: 'update' },
-				{ name: '- Mark Task as Completed', value: 'complete' },
 				{ name: '- Remove Task', value: 'remove' },
 				{ name: '- Exit', value: 'exit' },
 			],
@@ -52,7 +59,8 @@ export async function listTasksPrompt(tasks, info, edit) {
 		}
 	]);
 
-	return answers.Tasks.result;
+	const parsed = parseEditedTasks(answers.Tasks.result);
+	return parsed;
 }
 
 export async function taskInputPrompt() {
@@ -79,9 +87,9 @@ export async function taskInputPrompt() {
 			name: 'priority',
 			message: 'Priority:',
 			choices: [
-				{ name: '1 (High)', value: '1' },
-				{ name: '2 (Medium)', value: '2' },
-				{ name: '3 (Low)', value: '3' },
+				{ name: '1 (High)', value: 1 },
+				{ name: '2 (Medium)', value: 2 },
+				{ name: '3 (Low)', value: 3 },
 			],
 		},
 	]);

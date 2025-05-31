@@ -1,19 +1,18 @@
-#!/usr/bin/env node
-
 import { listTasksPrompt, mainMenuPrompt, taskInputPrompt } from './ui/menu.js';
 import { addTask } from './tasks/add.js';
 import { listTasks } from './tasks/list.js';
 import { updateTask } from './tasks/update.js';
 import { removeTask } from './tasks/remove.js';
-import { renderTasks } from './ui/render.js';
+import figlet from 'figlet';
 
 async function main() {
+    console.log(await figlet("\\ @_@ /", "Weird"));
     while (true) {
         const action = await mainMenuPrompt();
 
         if (action === 'add') {
             const task = await taskInputPrompt();
-            addTask(task);
+            await addTask(task);
         } else if (action === 'list') {
             const tasks = await listTasks();
             await listTasksPrompt(tasks, "Navigate", false);

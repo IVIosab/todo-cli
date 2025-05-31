@@ -1,8 +1,7 @@
-import db from '../db.js'
+import { getTasks } from '../db.js'
 
 export async function listTasks(sortBy = 'dueDate') {
-    await db.read()
-    let tasks = db.data.tasks;
+    let tasks = await getTasks();
     switch (sortBy) {
         case 'priority':
             tasks = tasks.sort((a, b) => a.priority - b.priority)
