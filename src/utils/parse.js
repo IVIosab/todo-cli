@@ -1,7 +1,6 @@
 export function parseUpdateTasks(editedTasks) {
     return editedTasks.map(task => ({
         ...task,
-        priority: Number(task.priority),
         completed: task.completed === "true"
     }));
 }
@@ -11,7 +10,6 @@ export function parseRemoveTasks(editedTasks) {
         .filter(task => task.remove !== "true")
         .map(({ remove, ...task }) => ({
             ...task,
-            priority: Number(task.priority),
             completed: task.completed === "true"
         }));
 }

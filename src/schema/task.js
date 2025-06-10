@@ -12,6 +12,6 @@ export const TaskSchema = z.object({
     description: z.string().optional().default(' '),
     dueDate: dayjsString('dueDate'),
     createdAt: dayjsString('createdAt'),
-    priority: z.number().lte(3).gte(1).default(3),
+    priority: z.string().regex(/^(High|Medium|Low)$/).default("Low"),
     completed: z.boolean(),
 });

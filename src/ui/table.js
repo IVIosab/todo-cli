@@ -10,28 +10,28 @@ export async function tablePrompt(tasks, info = '', edit = false, remove = false
         {
             name: chalk.cyan.bold("Title"),
             value: "title",
-            ...(edit && { editable: "text" })
+            ...(edit && { editable: "text", validate: input => input.trim().length >= 3, message: "Enter a title with more than three characters" })
         },
         {
             name: chalk.cyan.bold("Description"),
             value: "description",
-            ...(edit && { editable: "text" })
+            ...(edit && { editable: "text", message: "Enter an optional description" })
         },
         {
             name: chalk.cyan.bold("Due date"),
             value: "dueDate",
-            ...(edit && { editable: "text" })
+            ...(edit && { editable: "text", validate: input => /\d{4}-\d{2}-\d{2}/.test(input), message: "Enter a date in the following format YYYY-MM-DD" })
         },
         { name: chalk.cyan.bold("Created at"), value: "createdAt" },
         {
             name: chalk.cyan.bold("Priority"),
             value: "priority",
-            ...(edit && { editable: "number" })
+            ...(edit && { editable: "choice", choices: ["High", "Medium", "Low"], validate: input => /^(High|Medium|Low)$/.test(input), message: "Use left and right arrow keys to change the value" })
         },
         {
             name: chalk.cyan.bold("Completed"),
             value: "completed",
-            ...(edit && { editable: "text" })
+            ...(edit && { editable: "boolean", validate: input => /^(true|false)$/.test(input), message: "Use left and right arrow keys to change the value" })
         }
     ];
 
@@ -39,7 +39,9 @@ export async function tablePrompt(tasks, info = '', edit = false, remove = false
         columns.push({
             name: chalk.red.bold("Remove"),
             value: "remove",
-            editable: "text"
+            editable: "boolean",
+            validate: input => /^(true|false)$/.test(input),
+            message: "Use left and right arrow keys to change the value"
         });
     }
 
