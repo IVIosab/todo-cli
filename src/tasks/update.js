@@ -11,8 +11,7 @@ export async function updateTasks() {
 
     const answers = await tablePrompt(tasks, "Navigate and update cells", true);
 
-    const validated = validateUpdateTasks(tasks, answers.Tasks.result);
-    const parsed = parseUpdateTasks(validated);
+    const parsed = parseUpdateTasks(answers.Tasks.result);
 
     await postTasks(parsed);
 }

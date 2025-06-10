@@ -24,9 +24,9 @@ export async function taskInputPrompt() {
             name: 'priority',
             message: 'Priority:',
             choices: [
-                { name: '1 (High)', value: 1 },
-                { name: '2 (Medium)', value: 2 },
-                { name: '3 (Low)', value: 3 },
+                { name: '1 (High)', value: "High" },
+                { name: '2 (Medium)', value: "Medium" },
+                { name: '3 (Low)', value: "Low" },
             ],
         },
     ]);

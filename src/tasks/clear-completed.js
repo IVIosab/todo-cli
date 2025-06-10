@@ -7,7 +7,6 @@ export async function clearCompletedTasks() {
         .filter(task => task.completed !== true)
         .map((task) => ({
             ...task,
-            priority: Number(task.priority),
             completed: false
         })));
 }
