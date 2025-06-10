@@ -60,6 +60,7 @@ You'll be presented with an interactive menu that allows you to:
 
 ### Real-time update validation
 `inquirer-table-input` did not offer a way to validate cells in real-time. However, this is an easy fix if time was not a factor, the package code is rather simple and extendable.
+(Edit) I've added boolean and choice types, validation and column info messages in the module which can be seen in the node_modules dir
 
 ### Zod and Dayjs usage in validation
 due to lack of time and me procrastinating I am writing this either 2 hours before the deadline or 22 hours after the deadline. So, while creating the validation for update and remove I just could not afford to spend time trying to utilize zod and dayjs to its full potentional. 
