@@ -4,6 +4,15 @@ import chalk from 'chalk';
 
 inquirer.registerPrompt("table-input", TableInput);
 
+/**
+ * Displays an interactive table prompt for managing tasks with optional editing and removal capabilities.
+ * 
+ * @param {Array} tasks - An array of task objects to be displayed in the table
+ * @param {string} [info=''] - Optional informational message to display in the table
+ * @param {boolean} [edit=false] - Flag to enable inline editing of task properties
+ * @param {boolean} [remove=false] - Flag to enable task removal option
+ * @returns {Promise<Object>} A promise resolving to the user's table input answers
+ */
 export async function tablePrompt(tasks, info = '', edit = false, remove = false) {
     const columns = [
         { name: chalk.cyan.bold("id"), value: "id" },

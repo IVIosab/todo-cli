@@ -4,6 +4,13 @@ import { TaskSchema } from '../schema/task.js'
 import { nanoid } from 'nanoid'
 import dayjs from 'dayjs'
 
+/**
+ * Adds a new task to the task list after validating input and formatting dates.
+ * 
+ * @async
+ * @throws {Error} If the task data fails schema validation
+ * @returns {Promise<void>}
+ */
 export async function addTask() {
     const data = await taskInputPrompt();
 

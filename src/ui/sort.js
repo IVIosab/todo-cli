@@ -1,5 +1,10 @@
 import inquirer from 'inquirer';
 
+/**
+ * Prompts the user to select a sorting method for tasks.
+ * 
+ * @returns {Promise<string>} The selected sorting method ('priority', 'dueDate', 'createdAt', or 'status').
+ */
 export async function sortPrompt() {
     const { sortMethod } = await inquirer.prompt([
         {

@@ -1,5 +1,11 @@
 import inquirer from 'inquirer';
 
+/**
+ * Prompts the user to input task details using an interactive CLI.
+ * 
+ * @returns {Promise<Object>} An object containing task details including title, description, due date, and priority.
+ * @throws {Error} If input validation fails.
+ */
 export async function taskInputPrompt() {
     const task = await inquirer.prompt([
         {
