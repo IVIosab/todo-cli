@@ -1,6 +1,7 @@
 import inquirer from 'inquirer';
 import TableInput from 'inquirer-table-input';
 import chalk from 'chalk';
+import { z } from 'zod'
 
 inquirer.registerPrompt("table-input", TableInput);
 
@@ -19,7 +20,7 @@ export async function tablePrompt(tasks, info = '', edit = false, remove = false
         {
             name: chalk.cyan.bold("Title"),
             value: "title",
-            ...(edit && { editable: "text", validate: input => input.trim().length >= 3, message: "Enter a title with more than three characters" })
+            ...(edit && { editable: "text", validate: input => z.string().min(3).safeParse(input).success, message: "Enter a title with more than three characters" })
         },
         {
             name: chalk.cyan.bold("Description"),

@@ -28,7 +28,7 @@ const dayjsString = (fieldName = 'date') =>
  */
 export const TaskSchema = z.object({
     id: z.string(),
-    title: z.string().min(1, 'Title is required'),
+    title: z.string().min(3, 'Title is required'),
     description: z.string().optional().default(' '),
     dueDate: dayjsString('dueDate'),
     createdAt: dayjsString('createdAt'),
